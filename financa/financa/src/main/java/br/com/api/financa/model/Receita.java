@@ -8,7 +8,7 @@ public class Receita {
 	private Long id;
 	private String descricao;
 	private Double valor;
-	private LocalDateTime data = LocalDateTime.now();
+	private LocalDateTime dataCriacao = LocalDateTime.now();
 	
 	public Receita(String descricao, Double valor) {
 		this.descricao = descricao;
@@ -33,20 +33,20 @@ public class Receita {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	public LocalDateTime getData() {
-		return data;
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
 	}
-	public void setData(LocalDateTime data) {
-		this.data = data;
+	public void setDataCriacao(LocalDateTime dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 	
 	@Override
 	public String toString() {
-		return "Receita [id=" + id + ", descricao=" + descricao + ", valor=" + valor + ", data=" + data + "]";
+		return "Receita [id=" + id + ", descricao=" + descricao + ", valor=" + valor + ", data=" + dataCriacao + "]";
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(data, descricao, id, valor);
+		return Objects.hash(dataCriacao, descricao, id, valor);
 	}
 	
 	@Override
@@ -58,13 +58,8 @@ public class Receita {
 		if (getClass() != obj.getClass())
 			return false;
 		Receita other = (Receita) obj;
-		return Objects.equals(data, other.data) && Objects.equals(descricao, other.descricao)
+		return Objects.equals(dataCriacao, other.dataCriacao) && Objects.equals(descricao, other.descricao)
 				&& Objects.equals(id, other.id) && Objects.equals(valor, other.valor);
 	}
-	
-	
-	
-	
-	
 	
 }

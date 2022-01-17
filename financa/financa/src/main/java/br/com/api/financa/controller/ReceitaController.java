@@ -6,17 +6,17 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.api.financa.controller.dto.ReceitaDto;
 import br.com.api.financa.model.Receita;
 
 @RestController
 public class ReceitaController {
 
 	@RequestMapping("/receitas")
-	public List<Receita> lista(){
+	public List<ReceitaDto> lista(){
 		
 		Receita receita = new Receita("Dispesa do mês.", 300.00);
-		Receita receita2 = new Receita("Conta de Luz", 300.00);
 		
-		return Arrays.asList(receita,receita2);
+		return ReceitaDto.converte(Arrays.asList(receita,receita));
 	}
 }
