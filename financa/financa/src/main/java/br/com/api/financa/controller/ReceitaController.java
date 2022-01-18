@@ -15,7 +15,7 @@ public class ReceitaController {
 	@RequestMapping("/receitas")
 	public List<ReceitaDto> lista(){
 		
-		Receita receita = new Receita("Dispesa do mês.", 300.00);
+		Receita receita = new Receita("Salário", 300.00);
 		
 		return ReceitaDto.converte(Arrays.asList(receita,receita));
 	}

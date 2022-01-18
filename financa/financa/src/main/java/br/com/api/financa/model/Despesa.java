@@ -8,8 +8,12 @@ public class Despesa {
 	private Long id;
 	private String descricao;
 	private Double valor;
-	private LocalDateTime data;
+	private LocalDateTime data = LocalDateTime.now();
 	
+	public Despesa(String descricao, Double valor) {
+		this.descricao = descricao;
+		this.valor = valor;
+	}
 	
 	public Long getId() {
 		return id;
