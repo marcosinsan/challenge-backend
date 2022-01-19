@@ -1,5 +1,6 @@
 package br.com.api.financa.controller.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,7 +11,7 @@ public class ReceitaDto {
 	
 	private Long id;
 	private String descricao;
-	private Double valor;
+	private BigDecimal valor;
 	private LocalDateTime dataCriacao;
 	
 	public ReceitaDto(Receita receita) {
@@ -29,7 +30,7 @@ public class ReceitaDto {
 		return descricao;
 	}
 
-	public Double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 

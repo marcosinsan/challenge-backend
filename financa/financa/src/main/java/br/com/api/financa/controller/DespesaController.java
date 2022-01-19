@@ -1,22 +1,47 @@
 package br.com.api.financa.controller;
 
-import java.util.Arrays;
+import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.api.financa.controller.dto.DespesaDto;
+import br.com.api.financa.controller.form.DespesaForm;
 import br.com.api.financa.model.Despesa;
+import br.com.api.financa.service.DespesaService;
 
 @RestController
+@RequestMapping("/despesas")
 public class DespesaController {
+	
+	@Autowired
+	private DespesaService despesaService;
 
-	@RequestMapping("/despesas")
-	public List<DespesaDto> lista(){
+	@GetMapping
+	public List<DespesaDto> lista(String descricao){
 		
-		Despesa despesa = new Despesa("Conta de Luz", 178.0);
+		List<Despesa> despesas = despesaService.findAll(descricao);
 		
-		return DespesaDto.coverte(Arrays.asList(despesa, despesa));
+		return DespesaDto.coverte(despesas);
+		
+	}
+	
+	@PostMapping
+	public ResponseEntity<DespesaDto> cadastraDespesa(@RequestBody @Valid DespesaForm form, UriComponentsBuilder uriBuilder) {
+		
+		Despesa despesa = despesaService.cadastro(form);
+		
+		URI uri = uriBuilder.path("/despesa/{id}").buildAndExpand(despesa.getId()).toUri();
+		return ResponseEntity.created(uri).body(new DespesaDto(despesa));
+		
 	}
 }

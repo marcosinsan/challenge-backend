@@ -1,20 +1,35 @@
 package br.com.api.financa.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Despesa {
 	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String descricao;
-	private Double valor;
+	private BigDecimal valor;
 	private LocalDateTime data = LocalDateTime.now();
 	
-	public Despesa(String descricao, Double valor) {
+	public Despesa() {
+		
+	}
+	
+	
+	public Despesa(String descricao, BigDecimal valor) {
 		this.descricao = descricao;
 		this.valor = valor;
 	}
-	
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -27,10 +42,10 @@ public class Despesa {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
-	public void setValor(Double valor) {
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 	public LocalDateTime getData() {
