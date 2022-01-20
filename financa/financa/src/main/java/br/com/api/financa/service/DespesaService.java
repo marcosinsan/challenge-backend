@@ -2,9 +2,12 @@ package br.com.api.financa.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.api.financa.controller.form.AtualizacaoDespesaForm;
 import br.com.api.financa.controller.form.DespesaForm;
 import br.com.api.financa.model.Despesa;
 import br.com.api.financa.repository.DespesaRepository;
@@ -42,5 +45,15 @@ public class DespesaService {
 		
 		return despesa ;
 	}
+
+	@Transactional
+	public Despesa atualizarDespesa(Long id, AtualizacaoDespesaForm form) {
+		
+		Despesa despesa = form.atualizarForm(id, despesaRespository);
+		
+		return despesa;
+	}
+	
+	
 }
 	
