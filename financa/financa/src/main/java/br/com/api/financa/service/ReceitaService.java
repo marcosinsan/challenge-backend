@@ -32,4 +32,9 @@ public class ReceitaService {
 		
 		return receitaRepository.save(receita);
 	}
+
+	public Receita detalharReceitaId(Long id) {
+		Receita receita = receitaRepository.getById(id);
+		return receita;
+	}
 }

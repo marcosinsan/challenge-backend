@@ -35,5 +35,12 @@ public class DespesaService {
 		return despesaRespository.save(despesa);
 					
 	}
+	
+	public Despesa detalharDespesaId(Long id) {
+		
+		Despesa despesa = despesaRespository.getById(id);
+		
+		return despesa ;
+	}
 }
 	

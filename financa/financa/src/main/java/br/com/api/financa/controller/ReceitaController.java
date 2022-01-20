@@ -8,12 +8,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.api.financa.controller.dto.DetalhesDaReceitaDto;
 import br.com.api.financa.controller.dto.ReceitaDto;
 import br.com.api.financa.controller.form.ReceitaForm;
 import br.com.api.financa.model.Receita;
@@ -38,7 +40,12 @@ public class ReceitaController {
 		List<Receita> receita = receitaService.findAll(descricao);
 		
 		return ReceitaDto.converte(receita);
-		
+	}
+	
+	@GetMapping("/{id}")
+	public DetalhesDaReceitaDto detalhar(@PathVariable Long id) {
+		Receita receita = receitaService.detalharReceitaId(id);
+		return new DetalhesDaReceitaDto(receita);
 	}
 	
 	@PostMapping
