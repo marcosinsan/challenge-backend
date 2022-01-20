@@ -2,9 +2,12 @@ package br.com.api.financa.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.api.financa.controller.form.AtualizacaoReceitaForm;
 import br.com.api.financa.controller.form.ReceitaForm;
 import br.com.api.financa.model.Receita;
 import br.com.api.financa.repository.ReceitaRepository;
@@ -37,4 +40,13 @@ public class ReceitaService {
 		Receita receita = receitaRepository.getById(id);
 		return receita;
 	}
+	
+	@Transactional
+	public Receita atualizarReceita(Long id, AtualizacaoReceitaForm form) {
+		
+		Receita receita = form.atualizarFormulario(id, receitaRepository);
+		
+		return receita;
+	}
+	
 }
