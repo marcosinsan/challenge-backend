@@ -29,6 +29,7 @@ public class ReceitaService {
 		return receita;
 	}
 
+	@Transactional
 	public Receita cadastra(ReceitaForm form) {
 		
 		Receita receita = form.converte();
@@ -47,6 +48,13 @@ public class ReceitaService {
 		Receita receita = form.atualizarFormulario(id, receitaRepository);
 		
 		return receita;
+	}
+
+	@Transactional
+	public void deletarReceita(Long id) {
+		
+		receitaRepository.deleteById(id);;
+		
 	}
 	
 }

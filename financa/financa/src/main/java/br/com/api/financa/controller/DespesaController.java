@@ -2,11 +2,13 @@ package br.com.api.financa.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,9 +41,12 @@ public class DespesaController {
 	}
 
 	@GetMapping("/{id}")
-	public DetalhesDaDespesaDto detalhar(@PathVariable Long id) {
-		Despesa despesa = despesaService.detalharDespesaId(id);
-		return new DetalhesDaDespesaDto(despesa);
+	public ResponseEntity<DetalhesDaDespesaDto> detalhar(@PathVariable Long id) {
+		Optional<Despesa> despesa = despesaService.detalharDespesaId(id);
+		if(despesa.isPresent()) {
+			return ResponseEntity.ok(new DetalhesDaDespesaDto(despesa.get()));
+		}
+		return ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
@@ -57,8 +62,16 @@ public class DespesaController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<DespesaDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoDespesaForm form){
+		
 		Despesa despesa = despesaService.atualizarDespesa(id, form);
 		
 		return ResponseEntity.ok(new DespesaDto(despesa));
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deletar(@PathVariable Long id){
+		
+		despesaService.deletarDespesa(id);
+		return ResponseEntity.ok().build();
 	}
 }

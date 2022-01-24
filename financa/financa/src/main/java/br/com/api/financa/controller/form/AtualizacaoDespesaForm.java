@@ -1,6 +1,7 @@
 package br.com.api.financa.controller.form;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
@@ -32,12 +33,10 @@ public class AtualizacaoDespesaForm {
 	}
 	
 	public Despesa atualizarForm(Long id, DespesaRepository despesaRepository ) {
-		Despesa d = despesaRepository.getById(id);
 		
-		d.setDescricao(descricao);
-		d.setValor(valor);
-		
-		return d;
+		Optional<Despesa> d = despesaRepository.findById(id);
+				
+		return d.get();
 	}
 	
 	

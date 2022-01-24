@@ -1,6 +1,7 @@
 package br.com.api.financa.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -18,6 +19,11 @@ public class DespesaService {
 	@Autowired
 	private DespesaRepository despesaRespository;
 	
+	/**
+	 *
+	 *@implNote Método que lista todas as decrições das Despesa.
+	 * 
+	 **/
 	public List<Despesa> findAll(String descricao){
 		
 		if (descricao == null) {
@@ -31,6 +37,9 @@ public class DespesaService {
 		
 	}
 	
+	// ============== Método de Cadadastro de Despesa ============= //
+	
+	@Transactional
 	public Despesa cadastro(DespesaForm form) {
 		
 		Despesa despesa = form.converte();
@@ -39,21 +48,33 @@ public class DespesaService {
 					
 	}
 	
-	public Despesa detalharDespesaId(Long id) {
+	// ============== Método que detalha as despesas ============= //
+	
+	public Optional<Despesa> detalharDespesaId(Long id) {
 		
-		Despesa despesa = despesaRespository.getById(id);
+		 Optional<Despesa> despesa = despesaRespository.findById(id);
 		
-		return despesa ;
+		return despesa;
 	}
 
+	// ============== Método que atualiza as Despesa ============= //
+	
 	@Transactional
 	public Despesa atualizarDespesa(Long id, AtualizacaoDespesaForm form) {
 		
 		Despesa despesa = form.atualizarForm(id, despesaRespository);
 		
+		despesa.setDescricao(form.getDescricao());
+		despesa.setValor(form.getValor());
+		
 		return despesa;
 	}
 	
+	// ============== Método que deleta uma Despesa ============= //
 	
+	@Transactional
+	public void deletarDespesa(Long id) {
+		despesaRespository.deleteById(id);
+	}
 }
 	
